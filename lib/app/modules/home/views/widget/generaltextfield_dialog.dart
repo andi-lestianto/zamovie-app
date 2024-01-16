@@ -62,6 +62,8 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
                       )
                     : null,
                 hintText: 'Masukkan ${widget.title}',
+                filled: true,
+                fillColor: Colors.white,
                 hintStyle: TextStyle(
                     fontSize: 14.w,
                     fontWeight: FontWeight.normal,
