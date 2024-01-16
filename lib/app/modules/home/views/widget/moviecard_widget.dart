@@ -136,6 +136,9 @@ class MovieCardWidget extends StatelessWidget {
                 height: 140.w,
                 imageUrl: movieData.image.toString(),
                 fit: BoxFit.cover,
+                progressIndicatorBuilder: (context, url, progress) {
+                  return const Center(child: CircularProgressIndicator());
+                },
               ),
               SizedBox(width: 12.w),
               Expanded(

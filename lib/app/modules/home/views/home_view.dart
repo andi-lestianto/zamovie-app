@@ -56,31 +56,32 @@ class HomeView extends GetView<HomeController> {
               final List<AllMovie> movieData =
                   documents!.map((e) => AllMovie.fromJson(e)).toList();
 
-              return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot movieSnapshot = snapshot.data!.docs[index];
+              return ListView.separated(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot movieSnapshot = snapshot.data!.docs[index];
 
-                    return MovieCardWidget(
-                      documentSnapshot: movieSnapshot,
-                      movieData: movieData[index],
-                      onDelete: () {
-                        _.deleteMovie(
-                            documentSnapshot: movieSnapshot,
-                            movieData: movieData[index]);
-                      },
-                      onTap: () {
-                        showGeneralDialog(
-                          context: context,
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  FilmDetailDialog(
-                            movieData: movieData[index],
-                          ),
-                        );
-                      },
-                    );
-                  });
+                  return MovieCardWidget(
+                    documentSnapshot: movieSnapshot,
+                    movieData: movieData[index],
+                    onDelete: () {
+                      _.deleteMovie(
+                          documentSnapshot: movieSnapshot,
+                          movieData: movieData[index]);
+                    },
+                    onTap: () {
+                      showGeneralDialog(
+                        context: context,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            FilmDetailDialog(
+                          movieData: movieData[index],
+                        ),
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
+              );
             }),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red.shade400,
