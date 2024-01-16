@@ -1,16 +1,19 @@
-class AllMovie {
-  final int id;
-  final String title;
-  final String synopsis;
-  final String genre;
-  final double rating;
-  final String image;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  AllMovie(
-      {required this.id,
-      required this.title,
-      required this.synopsis,
-      required this.genre,
-      required this.rating,
-      required this.image});
+class AllMovie {
+  String? title;
+  String? sinopsis;
+  String? genre;
+  double? rating;
+  String? image;
+
+  AllMovie({this.title, this.sinopsis, this.genre, this.rating, this.image});
+
+  AllMovie.fromJson(QueryDocumentSnapshot<Map<String, dynamic>> json) {
+    title = json['title'];
+    sinopsis = json['sinopsis'];
+    genre = json['genre'];
+    rating = double.parse(json['rating'].toString());
+    image = json['image'];
+  }
 }

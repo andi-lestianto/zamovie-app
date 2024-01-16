@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GeneralTextField extends StatelessWidget {
   final String title;
   final TextEditingController textEditingController;
+  final bool? isNumeric;
+  final int? maxLines;
   const GeneralTextField(
-      {super.key, required this.title, required this.textEditingController});
+      {super.key,
+      required this.title,
+      required this.textEditingController,
+      this.isNumeric = false,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +27,13 @@ class GeneralTextField extends StatelessWidget {
           height: 4.w,
         ),
         TextField(
+            maxLines: maxLines,
+            keyboardType: isNumeric == true ? TextInputType.number : null,
+            inputFormatters: isNumeric == true
+                ? [
+                    FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                  ]
+                : null,
             controller: textEditingController,
             decoration: InputDecoration(
                 hintText: 'Masukkan $title',

@@ -29,14 +29,16 @@ class FilmDetailDialog extends StatelessWidget {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                           image: NetworkImage(
-                            movieData.image,
+                            movieData.image.toString(),
                           ),
                           opacity: 0.4,
                           fit: BoxFit.cover,
                         )),
                         child: CachedNetworkImage(
-                          imageUrl: movieData.image,
+                          imageUrl: movieData.image.toString(),
                           width: 200.w,
+                          height: 320.w,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -44,7 +46,7 @@ class FilmDetailDialog extends StatelessWidget {
                       height: 24.w,
                     ),
                     Text(
-                      movieData.title,
+                      movieData.title.toString(),
                       style: TextStyle(
                           fontSize: 20.sp, fontWeight: FontWeight.w500),
                     ),
@@ -58,7 +60,7 @@ class FilmDetailDialog extends StatelessWidget {
                           color: Colors.red.shade400,
                           borderRadius: BorderRadius.circular(8.r)),
                       child: Text(
-                        movieData.genre,
+                        movieData.genre.toString(),
                         style: TextStyle(
                             fontSize: 12.w,
                             fontWeight: FontWeight.normal,
@@ -75,7 +77,7 @@ class FilmDetailDialog extends StatelessWidget {
                             5,
                             (index) => Icon(
                                   Icons.star,
-                                  color: index < movieData.rating.round()
+                                  color: index < movieData.rating!.round()
                                       ? Colors.orange
                                       : Colors.grey.shade300,
                                 )),
@@ -91,7 +93,7 @@ class FilmDetailDialog extends StatelessWidget {
                   height: 4.w,
                 ),
                 Text(
-                  movieData.synopsis,
+                  movieData.sinopsis.toString(),
                   style: TextStyle(
                     fontSize: 14.sp,
                   ),

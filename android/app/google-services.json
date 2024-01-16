@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "918170962279",
+    "project_id": "zamovie-b4ec8",
+    "storage_bucket": "zamovie-b4ec8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918170962279:android:3eabb775ea179b6ba587c2",
+        "android_client_info": {
+          "package_name": "com.zamovie.zamovie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL11CJZeWu6tSKX09RrC5b2QPm0AltfkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

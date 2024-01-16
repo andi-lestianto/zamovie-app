@@ -1,11 +1,12 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zamovie/app/data/allmovie_model.dart';
+import 'package:zamovie/app/modules/home/views/dialog/managefilm_dialog.dart';
 
 class MovieCardWidget extends StatelessWidget {
+  final DocumentSnapshot documentSnapshot;
   final AllMovie movieData;
   final Function onDelete;
   final Function onTap;
@@ -13,13 +14,54 @@ class MovieCardWidget extends StatelessWidget {
       {super.key,
       required this.movieData,
       required this.onDelete,
-      required this.onTap});
+      required this.onTap,
+      required this.documentSnapshot});
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       direction: DismissDirection.horizontal,
-      key: Key(movieData.id.toString()),
+      key: Key(documentSnapshot.id),
+      background: Container(
+        decoration: const BoxDecoration(color: Colors.blue),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.all(24.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.edit, color: Colors.white),
+                SizedBox(height: 8.w),
+                Text(
+                  'Edit Data',
+                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      secondaryBackground: Container(
+        decoration: BoxDecoration(color: Colors.red.shade400),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: EdgeInsets.all(24.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.delete, color: Colors.white),
+                SizedBox(height: 8.w),
+                Text(
+                  'Hapus Data',
+                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       confirmDismiss: (DismissDirection direction) async {
         if (direction == DismissDirection.endToStart) {
           return await showDialog(
@@ -68,7 +110,16 @@ class MovieCardWidget extends StatelessWidget {
           );
         }
         if (direction == DismissDirection.startToEnd) {
-          log('Ubah Data');
+          showModalBottomSheet(
+              showDragHandle: true,
+              backgroundColor: Colors.white,
+              isScrollControlled: true,
+              enableDrag: true,
+              context: context,
+              builder: (context) => ManageFilmDialog(
+                    movieData: movieData,
+                    documentSnapshot: documentSnapshot,
+                  ));
         }
         return null;
       },
@@ -81,8 +132,10 @@ class MovieCardWidget extends StatelessWidget {
           child: Row(
             children: [
               CachedNetworkImage(
-                width: 100.w,
-                imageUrl: movieData.image,
+                width: 90.w,
+                height: 140.w,
+                imageUrl: movieData.image.toString(),
+                fit: BoxFit.cover,
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -90,13 +143,13 @@ class MovieCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      movieData.title,
+                      movieData.title.toString(),
                       style: TextStyle(
                           fontSize: 20.w, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 4.w),
                     Text(
-                      movieData.synopsis,
+                      movieData.sinopsis.toString(),
                       style: TextStyle(
                           fontSize: 12.w, fontWeight: FontWeight.normal),
                       maxLines: 2,
@@ -110,7 +163,7 @@ class MovieCardWidget extends StatelessWidget {
                           color: Colors.red.shade400,
                           borderRadius: BorderRadius.circular(8.r)),
                       child: Text(
-                        movieData.genre,
+                        movieData.genre.toString(),
                         style: TextStyle(
                             fontSize: 12.w,
                             fontWeight: FontWeight.normal,
@@ -124,7 +177,7 @@ class MovieCardWidget extends StatelessWidget {
                             5,
                             (index) => Icon(
                                   Icons.star,
-                                  color: index < movieData.rating.round()
+                                  color: index < movieData.rating!.round()
                                       ? Colors.orange
                                       : Colors.grey.shade300,
                                 )),

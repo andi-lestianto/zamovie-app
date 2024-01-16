@@ -4,8 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class GeneralButtonWidget extends StatelessWidget {
   final String title;
   final Function onTap;
+  final bool isSecondary;
+  final Widget? icon;
   const GeneralButtonWidget(
-      {super.key, required this.title, required this.onTap});
+      {super.key,
+      required this.title,
+      required this.onTap,
+      this.isSecondary = false,
+      this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +23,20 @@ class GeneralButtonWidget extends StatelessWidget {
         width: 1.sw,
         padding: EdgeInsets.symmetric(vertical: 16.w),
         decoration: BoxDecoration(
-          color: Colors.red.shade400,
-          borderRadius: BorderRadius.circular(8.r),
-        ),
-        child: Center(
-          child: Text(title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.sp,
-              )),
+            color: isSecondary ? Colors.white : Colors.red.shade400,
+            borderRadius: BorderRadius.circular(8.r),
+            border: Border.all(width: 1.w, color: Colors.red)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(title,
+                style: TextStyle(
+                  color: isSecondary ? Colors.red.shade400 : Colors.white,
+                  fontSize: 18.sp,
+                )),
+            if (icon != null)
+              Container(margin: EdgeInsets.only(left: 8.w), child: icon!)
+          ],
         ),
       ),
     );
