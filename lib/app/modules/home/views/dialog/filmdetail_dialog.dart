@@ -11,7 +11,12 @@ class FilmDetailDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kembali'),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.red.shade400,
+        title: const Text(
+          'Kembali',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         centerTitle: false,
       ),
       body: SafeArea(
@@ -27,13 +32,14 @@ class FilmDetailDialog extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(24.w),
                         decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.r),
                             image: DecorationImage(
-                          image: NetworkImage(
-                            movieData.image.toString(),
-                          ),
-                          opacity: 0.4,
-                          fit: BoxFit.cover,
-                        )),
+                              image: NetworkImage(
+                                movieData.image.toString(),
+                              ),
+                              opacity: 0.15,
+                              fit: BoxFit.cover,
+                            )),
                         child: CachedNetworkImage(
                           imageUrl: movieData.image.toString(),
                           width: 200.w,

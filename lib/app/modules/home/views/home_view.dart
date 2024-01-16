@@ -16,8 +16,13 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (_) {
       return Scaffold(
+        backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
-          title: const Text('Film Bioskop'),
+          backgroundColor: Colors.red.shade400,
+          title: const Text(
+            'Film Bioskop',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
           centerTitle: true,
         ),
         body: StreamBuilder(
@@ -56,7 +61,7 @@ class HomeView extends GetView<HomeController> {
               final List<AllMovie> movieData =
                   documents!.map((e) => AllMovie.fromJson(e)).toList();
 
-              return ListView.separated(
+              return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot movieSnapshot = snapshot.data!.docs[index];
@@ -80,7 +85,6 @@ class HomeView extends GetView<HomeController> {
                     },
                   );
                 },
-                separatorBuilder: (context, index) => const Divider(),
               );
             }),
         floatingActionButton: FloatingActionButton(

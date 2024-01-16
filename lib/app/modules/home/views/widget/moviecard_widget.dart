@@ -23,7 +23,9 @@ class MovieCardWidget extends StatelessWidget {
       direction: DismissDirection.horizontal,
       key: Key(documentSnapshot.id),
       background: Container(
-        decoration: const BoxDecoration(color: Colors.blue),
+        decoration: const BoxDecoration(
+          color: Colors.blue,
+        ),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -128,7 +130,10 @@ class MovieCardWidget extends StatelessWidget {
           onTap();
         },
         child: Container(
-          padding: const EdgeInsets.all(10),
+          margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.w),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(12.r)),
+          padding: EdgeInsets.all(10.w),
           child: Row(
             children: [
               CachedNetworkImage(
